@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant browser as browser
+    participant server as server
+
+    loop on submit form
+        browser ->> browser: the browser push new_note to notes array (JSON)
+        browser ->> browser: and render the notes list
+    end
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    Note right of browser: the browser sends the new note in JSON format to the server
+    activate server
+    loop push new note
+        server->>server: the server push new_note to the notes array
+    end
+    server -->> browser: the server sends a 201 code (created) to the browser
+    deactivate server
